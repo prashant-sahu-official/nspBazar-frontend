@@ -1,0 +1,43 @@
+.categories-container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.categories-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: #282c3f;
+}
+
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #282c3f;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+
+.category-link:hover {
+    color: #f54e77;
+}
+
+.category-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
