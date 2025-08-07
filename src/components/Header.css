@@ -38,6 +38,7 @@ header {
     flex-direction: column;
     align-items: center;
     gap: 2px;
+    color : inherit ;
 }
 
 .nav_bar {
@@ -144,12 +145,18 @@ header {
         flex-direction: column;
         height: auto;
         padding: 8px 1vw;
+        font-size: larger;
     }
 
     .nav_bar {
         width: 100%;
         flex-wrap: wrap;
         gap: 2px;
+    }
+
+    .nav_bar a {
+        font-size: 0.9rem;
+        padding: 15px 0;
     }
 
     .search_bar {

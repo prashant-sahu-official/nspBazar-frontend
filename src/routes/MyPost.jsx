@@ -29,8 +29,10 @@ const MyPost = () => {
             })
             .catch((err) => {
                 console.error("Error fetching user's posts:", err);
-            });
-            setLoading(false);
+            }).finally(() => {
+            setLoading(false); // ✅ Moved here
+        });
+            
     }, []);
 
     return <>

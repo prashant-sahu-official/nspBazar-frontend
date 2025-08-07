@@ -1,60 +1,73 @@
 import "./Categories.css";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import React, { useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+
+import './Categories.css';
+
+// import required modules
+import { FreeMode, Pagination } from "swiper/modules";
+
 
 const Categories = () => {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const categories = [
+  { name: "Books", image: "/images/categories/books.png" },
+  { name: "Electronics", image: "/images/categories/electronics.png" },
+  { name: "Properties", image: "/images/categories/properties.png" },
+  { name: "Clothing", image: "/images/categories/fashion.png" },
+  { name: "Vehicles", image: "/images/categories/vehicles.png" }
+];
+
+
   return (
-    <nav className="categories-container" aria-label="Main categories">
-      <h2 className="categories-title">Browse Categories</h2>
-      <ul className="categories-list">
-        <li>
-          <Link to="/category/electronics" className="category-link">
+    <>
+    {isMobile ? (
+      <Swiper
+        slidesPerView="auto"
+        spaceBetween={10}
+        freeMode={true}
+        modules={[FreeMode, Pagination]}
+        className="mySwiper"
+      >
+        {categories.map((category, index) => (
+          <SwiperSlide key={index} style={{ width: "120px" }}>
+            <Link to={`/category/${category.name.toLowerCase()}`} className="category-link">
+              <img
+                src={category.image}
+                alt={category.name}
+                className="category-img"
+              />
+              <span>{category.name}</span>
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    ) : (
+      <div className="categories-list">
+        {categories.map((category, index) => (
+          <Link to={`/category/${category.name.toLowerCase()}`} className="category-link" key={index}>
             <img
-              src="/images/electronics.png"
-              alt="Electronics"
+              src={category.image}
+              alt={category.name}
               className="category-img"
             />
-            <span>Electronics</span>
+            <span>{category.name}</span>
           </Link>
-        </li>
-        <li>
-          <Link to="/category/book" className="category-link">
-            <img src="/images/books.png" alt="Books" className="category-img" />
-            <span>Books</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/category/properties" className="category-link">
-            <img
-              src="/images/properties.png"
-              alt="Properties"
-              className="category-img"
-            />
-            <span>Properties</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/category/vehicles" className="category-link">
-            <img
-              src="/images/vehicles.png"
-              alt="Vehicles"
-              className="category-img"
-            />
-            <span>Vehicles</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/category/fashion" className="category-link">
-            <img
-              src="/images/fashion.png"
-              alt="Fashion"
-              className="category-img"
-            />
-            <span>Fashion</span>
-          </Link>
-        </li>
-      </ul>
-    </nav>
+        ))}
+      </div>
+    )}
+    </>
   );
 };
+
+
 
 export default Categories;

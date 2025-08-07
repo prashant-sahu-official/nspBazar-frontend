@@ -1,12 +1,12 @@
 /* Container styles */
-.items-container {
+/* .items-container {
     width: 80%;
     margin: 40px 10%;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: flex-start;
-}
+} */
 
 .item-container {
     position: relative;
@@ -155,15 +155,16 @@
 
 @media (max-width: 600px) {
     .items-container {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
         gap: 10px;
         width: 100%;
         margin: 10px 0;
     }
 
     .item-container {
-        width: 95vw;
+        width: 40%;
         max-width: 350px;
         height: 320px;
         margin: 0 auto 12px auto;

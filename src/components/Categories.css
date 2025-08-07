@@ -1,7 +1,10 @@
 .categories-container {
     width: 100%;
-    margin: 0 auto;
+    margin: 15px auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .categories-title {
@@ -13,11 +16,13 @@
 .categories-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 24px;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-top: 13px;
+    margin-bottom: 20px;
+    width: 100vw ;
 }
 
 .category-link {
@@ -36,8 +41,20 @@
 }
 
 .category-img {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     object-fit: contain;
     margin-bottom: 8px;
+}
+
+.mySwiper {
+    margin-top:15px;
+    margin-bottom: 15px ;
+}
+
+@media (max-width: 600px){
+    .category-img {
+    width: 40px;
+    height: 40px;
+    }
 }

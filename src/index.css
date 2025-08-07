@@ -70,8 +70,8 @@
 
 /* Main section */
 .items-container {
-    width: 80%;
-    margin: 50px 10%;
+    width: 95%;
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

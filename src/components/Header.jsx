@@ -21,7 +21,7 @@ const Header = ()=> {
             <Link to="/myPost"> My Posts </Link>
             {/* <a href="#">Home & Living</a> */}
             {!isLogin && <Link to="/login">Login</Link>}
-            <Link to="/addPost">Create Post <sup>New</sup></Link>
+            <Link to="/addPost">Create Post</Link>
         </nav>
         <div class="search_bar">
             <button className="search_button"><GoSearch className="search_icon" /></button>
