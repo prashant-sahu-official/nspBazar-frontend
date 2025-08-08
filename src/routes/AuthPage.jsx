@@ -118,7 +118,7 @@ const AuthPage = () => {
                 required
               />
               <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
-              {error && <p stylee={{color:"red"}}>{error}</p>}
+              {error && <p style={{color:"red"}}>{error}</p>}
             </form>
             <p>
               {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}

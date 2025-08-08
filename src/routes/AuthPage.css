@@ -29,6 +29,8 @@
 .auth-box form {
   display: flex;
   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
   gap: 15px;
    height : 70% ;
   width: 70% ;
@@ -66,4 +68,30 @@
   color: #007bff;
   cursor: pointer;
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .auth-box {
+    width: 90%;
+    padding: 20px;
+    height: 54% ;
+    margin-bottom: 150px;
+  }
+
+ 
+
+  .auth-box input,
+  .auth-box button {
+    width: 85%;
+  }
+
+  .auth-box form{
+    width: 94%;
+
+  }
+  .auth-box button {
+    width: auto;
+    padding: 12px;
+  }
+  
 }

@@ -130,16 +130,25 @@ input {
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .addpost-card {
         padding: 18px 8px;
         max-width: 98vw;
     }
-
+    .addpost-form{
+        width: 95%;
+    }
     .addpost-title {
         font-size: 1.3rem;
     }
 
+    .form-row{
+        width: 90%;
+    }
+    
+    .addpost-btn{
+        width:25% ;
+    }
     .form-row input,
     .form-row select,
     .form-row textarea {
