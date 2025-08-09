@@ -19,7 +19,7 @@ const Header = () => {
   
   const handleMenuToggle = () => {
     const fullScreen = document.getElementById("full-scr");
-    fullScreen.style.top = fullScreen.style.top === "0%" ? "-100%" : "0%";
+    fullScreen.style.top = fullScreen.style.top === "0%" ? "-110%" : "0%";
   };
   return (
     <>
