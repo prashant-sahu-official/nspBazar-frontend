@@ -7,6 +7,8 @@ import { GoSearch } from "react-icons/go";
 import { FiMenu } from "react-icons/fi";
 import { MdPlaylistAddCircle } from "react-icons/md";
 import { MdPlaylistAddCheckCircle } from "react-icons/md";
+import { IoIosLogIn } from "react-icons/io";
+
 
 
 
@@ -37,14 +39,14 @@ const Header = () => {
         <div id="full-scr">
           <div id="full-div1">
           <Link to="/myPost"><MdPlaylistAddCheckCircle /> My Posts </Link>
-          {!isLogin && <Link to="/login">Login</Link>}
+          {!isLogin && <Link to="/login"><IoIosLogIn /> Login</Link>}
           <Link to="/addPost"><MdPlaylistAddCircle /> Create Post</Link>
           <Link class="action_container" to="/myProfile">
-            <ImProfile />
+            <ImProfile  />
             <span class="action_name">Profile</span>
           </Link>
           <Link class="action_container" to="/wishlist">
-            <LuBookHeart />
+            <LuBookHeart size={40} />
             <span class="action_name">Wishlist</span>
           </Link>
           </div>

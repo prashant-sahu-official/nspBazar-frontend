@@ -221,11 +221,11 @@ header h3 {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        color: black;
+       color: #282c3f;
     }
 
     #full-div1 a {
-        color: black;
+        color: #282c3f;
         text-decoration: none;
         margin-left: 5vw;
     }
