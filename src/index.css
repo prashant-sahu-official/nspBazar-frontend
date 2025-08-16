@@ -4,6 +4,12 @@
     font-family: Assistant,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
     box-sizing: border-box;
 }
+
+body{
+ background: 
+    linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.3)) ;
+background-blend-mode: overlay;
+}
 .root{
   width :100% ;
 }

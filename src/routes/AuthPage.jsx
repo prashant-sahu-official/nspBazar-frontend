@@ -79,10 +79,14 @@ const AuthPage = () => {
 
         navigate("/");
       } else {
-        alert(data.msg || "Something went wrong ❌");
+        setLoading(false);
+        alert(data.message || "Something went wrong ❌");
+        
       }
     } catch (err) {
+      setLoading(false);
       console.error("Error:", err);
+      
     }
   };
 
