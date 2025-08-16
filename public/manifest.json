@@ -1,0 +1,22 @@
+{
+  "name": "nspBazaar",
+  "short_name": "NSP",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "description": "A local marketplace for Narsinghpur",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/nspBazarLogo_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/nspBazarLogo_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
