@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { itemsActions } from "../store/itemSlice";
 import Loader from "../components/Loader";
+import { toast, Bounce } from "react-toastify";
 
 const AddPost = () => {
   const [loading, setLoading] = useState(false);
@@ -39,7 +40,18 @@ const AddPost = () => {
       .then((res) => res.json())
       .then((data) => {
         dispatch(itemsActions.addItem(data.item));
-        alert("Item added successfully!");
+        toast.success("Item added successfully!", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+
         setLoading(false);
         navigate("/");
       })

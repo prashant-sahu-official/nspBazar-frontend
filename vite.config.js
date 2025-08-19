@@ -10,7 +10,7 @@ export default defineConfig({
       includeAssets: ["favicon.svg", "favicon.ico", "robots.txt", "apple-touch-icon.png"],
       manifest: {
         name: "nspBazaar",
-        short_name: "NSP",
+        short_name: "nspBazaar",
         description: "A local marketplace for Narsinghpur",
         theme_color: "#2563eb",
         background_color: "#ffffff",
@@ -21,12 +21,14 @@ export default defineConfig({
           {
             src: "/icons/nspBazarLogo_192x192.png",
             sizes: "192x192",
-            type: "image/png"
+            type: "image/png",
+            "purpose": "maskable"
           },
           {
             src: "/icons/nspBazarLogo_512x512.png",
             sizes: "512x512",
-            type: "image/png"
+            type: "image/png",
+            "purpose": "any"
           }
         ]
       }

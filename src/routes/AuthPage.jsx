@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isLoginActions } from "../store/isLoginSlice";
 import { wishlistActions } from "../store/wishlistSlice";
 import Loader from "../components/Loader";
+import { toast, Bounce } from "react-toastify";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -26,14 +27,13 @@ const AuthPage = () => {
     const name = nameRef.current?.value || ""; // safe check
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-   
 
     if (!isValidEmail(email)) {
       return setError("Invalid Email Formate");
     }
 
-    if(password.length<8){
-      return setError("Password length must be atleast 8 character") ;
+    if (password.length < 8) {
+      return setError("Password length must be atleast 8 character");
     }
 
     const formData = isLogin ? { email, password } : { name, email, password };
@@ -50,7 +50,7 @@ const AuthPage = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(res);
+
       const data = await res.json();
 
       if (res.ok) {
@@ -62,12 +62,14 @@ const AuthPage = () => {
 
         // Fetch the wishlist for the logged-in user
         await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/wishlist/${localStorage.getItem("userId")}`
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/api/wishlist/${localStorage.getItem("userId")}`
         )
           .then((res) => res.json())
           .then((data) => {
             // Handle the fetched wishlist data
-            
+
             dispatch(wishlistActions.addInitialWishlist(data.wishlist));
           })
           .catch((error) => {
@@ -75,25 +77,56 @@ const AuthPage = () => {
           });
         //---------------------------------------------------------
         setLoading(false);
-        alert("Login/Signup Success ✅");
+
+        toast.success("Login/Signup Success ✅", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
 
         navigate("/");
       } else {
         setLoading(false);
-        alert(data.message || "Something went wrong ❌");
-        
+        toast.error(data.message || "Something went wrong ❌", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
     } catch (err) {
       setLoading(false);
-      console.error("Error:", err);
-      
+      toast.error(err.message || "Something went wrong ❌", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
     }
   };
 
   return (
     <>
       <Header></Header>
-        {loading ? <Loader /> : (
+      {loading ? (
+        <Loader />
+      ) : (
         <div className="auth-container">
           <div className="auth-box">
             <h2>{isLogin ? "Login" : "Sign Up"}</h2>
@@ -122,7 +155,7 @@ const AuthPage = () => {
                 required
               />
               <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
-              {error && <p style={{color:"red"}}>{error}</p>}
+              {error && <p style={{ color: "red" }}>{error}</p>}
             </form>
             <p>
               {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
@@ -132,8 +165,7 @@ const AuthPage = () => {
             </p>
           </div>
         </div>
-        )}
-      
+      )}
     </>
   );
 };

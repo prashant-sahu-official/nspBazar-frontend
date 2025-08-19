@@ -16,6 +16,8 @@ import MyPost from "./routes/MyPost.jsx";
 import MyProfile from "./routes/MyProfile.jsx";
 import Wishlist from "./routes/Wishlist.jsx";
 import CategoryRoute from "./routes/CategoryRoute.jsx";
+import { ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +97,20 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={myntraStore}>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </Provider>
   </StrictMode>
 );
