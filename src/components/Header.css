@@ -142,6 +142,65 @@ header h3 {
     z-index: 10;
 }
 
+/* Mobile Nav Overlay */
+#full-scr.mobile-nav {
+    position: fixed;
+    top: -110%;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: orange ;
+    z-index: 9;
+    transition: top 0.8s cubic-bezier(.77, 0, .18, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+      pointer-events: auto; /* 👈 Allows it to receive touch/click events */
+  touch-action: none;   /* 👈 Prevents default scrolling behavior */
+}
+
+/* When menu is open, set top: 0% via JS */
+
+/* Mobile Nav Content */
+.mobile-nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    width: 100%;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 1.3rem;
+    color: #282c3f;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 8px;
+    transition: background 1s, color 1s;
+}
+
+.mobile-nav-link:hover {
+    background: #f54e77;
+    color: #fff;
+}
+
+.mobile-nav-link svg {
+    font-size: 2rem;
+}
+
+/* Hide mobile nav on desktop */
+@media (min-width: 800px) {
+    #full-scr.mobile-nav {
+        display: none !important;
+    }
+}
+
 /* Responsive styles */
 @media (max-width: 900px) {
     header {
@@ -221,7 +280,7 @@ header h3 {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-       color: #282c3f;
+        color: #282c3f;
     }
 
     #full-div1 a {
