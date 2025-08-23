@@ -26,20 +26,21 @@ const Item = () => {
         <img
           src={item.image}
           alt={item.title || "Item"}
-          className="item-image"
+          className="item-img"
         />
       </div>
       <div className="item-details-container">
         <h2 className="item-title">{item.title}</h2>
         <p className="item-description">{item.description}</p>
-        <div className="item-meta">
           <span>
             <strong>Posted At:</strong> {item.postedAt}
           </span>
           <span>
             <strong>Location:</strong> {item.location}
           </span>
-        </div>
+          <span>
+            <strong>Contact Number:</strong> {item.mobile}
+          </span>
         {/* Add more details or actions here if needed */}
       </div>
     </div>

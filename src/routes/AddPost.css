@@ -71,7 +71,7 @@ input {
 .addpost-form {
     display: flex;
     flex-direction: column;
-        height: 100vh;
+        height: 104vh;
     gap: 16px;
 }
 
@@ -99,7 +99,16 @@ input {
     width: 100%;
     box-sizing: border-box;
 }
+.mobile-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 6px;
+}
 
+.mobile-input input{
+    flex: 1;
+}
 .form-row input[type="file"] {
     padding: 4px 0;
     background: none;
@@ -118,10 +127,9 @@ input {
     font-weight: 700;
     border: none;
     border-radius: 8px;
-    padding: 12px 0;
+    padding: 10px 5px;
     font-size: 1.1rem;
     cursor: pointer;
-    margin-top: 8px;
     transition: background 0.2s;
 }
 

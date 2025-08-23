@@ -8,6 +8,7 @@ import { itemsActions } from "../store/itemSlice";
 import { FiHeart } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { toast, Bounce } from "react-toastify";
+import { BsFillTelephoneOutboundFill } from "react-icons/bs";
 
 import "./HomeItem.css";
 import { wishlistActions } from "../store/wishlistSlice";
@@ -22,12 +23,6 @@ const HomeItem = ({ item }) => {
 
   const atMyPostsPage = location.pathname === "/myPost";
 
-  const bagItems = useSelector((store) => store.bag);
-  const elementFound = bagItems.indexOf(item._id) >= 0;
-
-  const handleAddtoBag = () => {
-    dispatch(bagActions.addToBag(item._id));
-  };
   const handleRemoveFromBag = () => {
     dispatch(bagActions.removeFromBag(item._id));
   };
@@ -36,7 +31,17 @@ const HomeItem = ({ item }) => {
     const userId = localStorage.getItem("userId");
 
     if (!userId) {
-      alert("Please log in to add items to your wishlist.");
+      toast.warn("Please log in to add items to your wishlist!", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
       return;
     }
 
@@ -131,25 +136,29 @@ const HomeItem = ({ item }) => {
 
           <span class="address">({item.location})</span>
         </Link>
-
-        {elementFound ? (
-          <button
-            type="button"
-            class="btn-add-bag btn btn-danger"
-            onClick={handleRemoveFromBag}
-          >
-            <MdDeleteForever />
-            Remove from bag
-          </button>
-        ) : (
+        
+        {!atMyPostsPage && (
           <button
             type="button"
             class="btn-add-bag btn btn-success"
-            onClick={handleAddtoBag}
+            onClick={() => (window.location.href = `tel:${item.mobile}`)}
           >
-            {<MdAddShoppingCart />}Add to Bag
+            {<BsFillTelephoneOutboundFill />}Call
           </button>
         )}
+        
+        {!atMyPostsPage && (
+          <a
+          href={`https://wa.me/${item.mobile}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary"
+        >
+          💬 WhatsApp
+        </a>
+        )}
+        
+
         {atMyPostsPage && (
           <button
             type="button"

@@ -17,12 +17,40 @@ const AddPost = () => {
   const descriptionRef = useRef();
   const imageRef = useRef();
   const locationRef = useRef();
+  const mobileRef = useRef();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const sanitizeMobile = () => {
+    if (!mobileRef.current) return;
+    // keep digits only and limit to 10 chars
+    const cleaned = mobileRef.current.value.replace(/\D/g, "").slice(0, 10);
+    mobileRef.current.value = cleaned;
+  };
+
+  const isMobileValid = () => {
+    const val = mobileRef.current ? mobileRef.current.value : "";
+    return /^\d{10}$/.test(val);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // ensure mobile sanitized before validation
+    sanitizeMobile();
+
+    if (!isMobileValid()) {
+      // show error (toast or set error UI)
+      toast.error("Please enter a valid 10-digit mobile number.", {
+        position: "top-center",
+        autoClose: 4000,
+        theme: "colored",
+        transition: Bounce,
+      });
+      return;
+    }
+
     setLoading(true);
     const formData = new FormData();
     formData.append("title", titleRef.current.value);
@@ -31,8 +59,11 @@ const AddPost = () => {
     formData.append("description", descriptionRef.current.value);
     formData.append("image", imageRef.current.files[0]);
     formData.append("location", locationRef.current.value);
+    formData.append("mobile", mobileRef.current.value);
     formData.append("userId", localStorage.getItem("userId"));
 
+    console.log("formdata", formData);
+   
     fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items`, {
       method: "POST",
       body: formData,
@@ -89,12 +120,13 @@ const AddPost = () => {
                   required
                 >
                   <option value="">Select Category</option>
-                  <option value="book">Book</option>
-                  <option value="electronics">Electronics</option>
-                  <option value="furniture">Furniture</option>
-                  <option value="property">Property</option>
-                  <option value="clothing">Clothing</option>
-                  <option value="other">Other</option>
+                  <option value="Books">Books</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Furniture">Furniture</option>
+                  <option value="Properties">Properties</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="AutoMobiles">AutoMobiles</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
               <div className="form-row">
@@ -138,6 +170,34 @@ const AddPost = () => {
                   ref={locationRef}
                   required
                 />
+              </div>
+              <div className="form-row">
+                <label htmlFor="mobile">Mobile Number</label>
+                <div className="mobile-input">
+                  <span
+                    style={{
+                      background: "#f7f7fa",
+                      border: "1px solid #e0e0e0",
+                      borderRadius: "6px",
+                      padding: "8px 10px",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    +91
+                  </span>
+                  <input
+                    type="text"
+                    id="mobile"
+                    name="mobile"
+                    ref={mobileRef}
+                    onInput={sanitizeMobile} // uses ref to sanitize without state
+                    inputMode="numeric"
+                    pattern="\d{10}"
+                    maxLength={10}
+                    placeholder="Enter 10-digit mobile"
+                    required
+                  />
+                </div>
               </div>
               <button type="submit" className="addpost-btn">
                 Submit

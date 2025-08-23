@@ -78,11 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/category/:category",
-        element: (
-          <ProtectedRoute>
-            <CategoryRoute />
-          </ProtectedRoute>
-        ),
+        element: <CategoryRoute /> ,
       },
     ],
   },

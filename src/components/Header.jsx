@@ -21,6 +21,22 @@ const Header = () => {
   const touchStartY = useRef(0);
   const touchEndY = useRef(0);
   const navRef = useRef(null); // 👈 Reference to #full-scr
+    
+  //onCLick event using event delegation for mobile nav links
+    useEffect(() => {
+    const nav = navRef.current;
+
+    const handleClick = (e) => {
+      // check if clicked element or its parent has class "mobile-nav-link"
+      const link = e.target.closest(".mobile-nav-link");
+      if (link && nav.contains(link)) {
+        navRef.current.style.top = "-110%";
+      }
+    };
+
+    nav.addEventListener("click", handleClick);
+    return () => nav.removeEventListener("click", handleClick);
+  }, []);
 
   useEffect(() => {
     const navEl = navRef.current;
@@ -127,12 +143,6 @@ const Header = () => {
           <Link class="action_container" to="/wishlist">
             <LuBookHeart />
             <span class="action_name">Wishlist</span>
-          </Link>
-
-          <Link class="action_container" to="/bag">
-            <BsHandbagFill />
-            <span class="action_name">Bag</span>
-            <span class="bag-item-count">{bag.length}</span>
           </Link>
         </div>
       </header>
