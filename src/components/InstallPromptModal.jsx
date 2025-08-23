@@ -1,31 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./InstallPromptModal.css"; // yahan pe apni css file import karo
 
 function InstallPromptModal() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setShowModal(true);
-    };
+
+    // directly modal dikhane ki jagah timeout se show karo
+      timeoutRef.current = setTimeout(() => {
+        setShowModal(true);
+      }, 25000); // 25 sec baad modal show hoga
+      };
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
-  // popup har 20 sec baad show karne ke liye
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (deferredPrompt) {
+  // popup har 30 sec baad show karne ke liye
+ useEffect(() => {
+    if (deferredPrompt && !intervalRef.current) {
+      intervalRef.current = setInterval(() => {
         setShowModal(true);
-      }
-    }, 20000); // 20 seconds
+      }, 30000); // 30 sec
+    }
 
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
   }, [deferredPrompt]);
 
   const handleInstall = async () => {
@@ -40,6 +53,7 @@ function InstallPromptModal() {
 
   const handleClose = () => {
     setShowModal(false);
+    setDeferredPrompt(null);
   };
 
   if (!showModal) return null;
