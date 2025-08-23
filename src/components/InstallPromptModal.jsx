@@ -7,40 +7,31 @@ function InstallPromptModal() {
   const intervalRef = useRef(null);
   const timeoutRef = useRef(null);
 
-  useEffect(() => {
+   useEffect(() => {
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
 
-    // directly modal dikhane ki jagah timeout se show karo
+      // ⏳ Pehle delay (25 sec) ke baad ek baar modal dikhana
       timeoutRef.current = setTimeout(() => {
         setShowModal(true);
-      }, 25000); // 25 sec baad modal show hoga
-      };
+
+        // 🔄 Uske baad har 30 sec repeat karna
+        intervalRef.current = setInterval(() => {
+          setShowModal(true);
+        }, 30000);
+
+      }, 30000); // 30 sec ka delay
+    };
 
     window.addEventListener("beforeinstallprompt", handler);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handler);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
-
-  // popup har 30 sec baad show karne ke liye
- useEffect(() => {
-    if (deferredPrompt && !intervalRef.current) {
-      intervalRef.current = setInterval(() => {
-        setShowModal(true);
-      }, 30000); // 30 sec
-    }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [deferredPrompt]);
 
   const handleInstall = async () => {
     if (deferredPrompt) {
