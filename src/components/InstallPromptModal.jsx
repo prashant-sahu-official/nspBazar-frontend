@@ -54,7 +54,6 @@ function InstallPromptModal() {
 
   const handleClose = () => {
     setShowModal(false);
-    setDeferredPrompt(null);
   };
 
   if (!showModal) return null;

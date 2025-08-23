@@ -12,7 +12,7 @@
     position: relative;
     width: 250px;
     margin: 10px;
-    height: 400px;
+    height: 394px;
     /* Fixed height for all cards */
     background: #fff;
     border-radius: 10px;
@@ -166,7 +166,7 @@
     .item-container {
         width: 40%;
         max-width: 350px;
-        height: 297px;
+        height: 286px;
         margin: 0 auto 12px auto;
     }
 

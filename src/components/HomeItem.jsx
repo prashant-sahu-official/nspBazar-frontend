@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { bagActions } from "../store/bagSlice";
-import { MdAddShoppingCart } from "react-icons/md";
-import { MdDeleteForever } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { myItemsActions } from "../store/myItemsSlice";
 import { itemsActions } from "../store/itemSlice";
 import { FiHeart } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { toast, Bounce } from "react-toastify";
-import { BsFillTelephoneOutboundFill } from "react-icons/bs";
+import { FaWhatsapp } from "react-icons/fa";
+import { VscCallOutgoing } from "react-icons/vsc";
+
+
 
 import "./HomeItem.css";
 import { wishlistActions } from "../store/wishlistSlice";
@@ -138,13 +139,9 @@ const HomeItem = ({ item }) => {
         </Link>
         
         {!atMyPostsPage && (
-          <button
-            type="button"
-            class="btn-add-bag btn btn-success"
-            onClick={() => (window.location.href = `tel:${item.mobile}`)}
-          >
-            {<BsFillTelephoneOutboundFill />}Call
-          </button>
+          <a href={`tel:${item.mobile}`} className="btn btn-primary">
+            <VscCallOutgoing /> Call
+          </a>
         )}
         
         {!atMyPostsPage && (
@@ -152,9 +149,9 @@ const HomeItem = ({ item }) => {
           href={`https://wa.me/${item.mobile}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-primary"
+          className="btn btn-success"
         >
-          💬 WhatsApp
+          <FaWhatsapp /> WhatsApp
         </a>
         )}
         
