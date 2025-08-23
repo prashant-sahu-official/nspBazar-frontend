@@ -5,6 +5,7 @@ function InstallPromptModal() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     const handler = (e) => {
