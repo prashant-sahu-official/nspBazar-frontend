@@ -37,7 +37,7 @@ const AuthPage = () => {
       const googleId = decoded.sub; // unique google id
 
       // ---- Option A: Send token to backend for verification & login ----
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/google-login`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/googleLogin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, googleId }),
