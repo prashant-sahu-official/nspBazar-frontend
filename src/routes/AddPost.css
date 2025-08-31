@@ -10,7 +10,7 @@ form {
     border-radius: 10px;
 }
 
-form div {
+form .form-row {
     display: flex;
     justify-content: space-between;
     width: 50%;

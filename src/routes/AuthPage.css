@@ -9,10 +9,10 @@
 
 .auth-box {
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 10px;
-  height : 70% ;
-  width: 60% ;
+  height : 72% ;
+  width: 68% ;
     display: flex;
   justify-content: center;
   align-items: center;
@@ -29,10 +29,10 @@
 .auth-box form {
   display: flex;
   flex-direction: column;
-   justify-content: space-evenly;
+   justify-content: center;
    align-items: center;
   gap: 15px;
-   height : 70% ;
+   height : 74% ;
   width: 70% ;
 }
 
@@ -51,7 +51,7 @@
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
-  width: 15% ;
+  width: 20% ;
 }
 
 .auth-box button:hover {

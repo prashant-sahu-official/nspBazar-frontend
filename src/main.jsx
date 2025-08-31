@@ -18,6 +18,7 @@ import Wishlist from "./routes/Wishlist.jsx";
 import CategoryRoute from "./routes/CategoryRoute.jsx";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <GoogleOAuthProvider clientId="397608238006-equbap7begks871rkf1pfbav6mr3t8bb.apps.googleusercontent.com">
     <Provider store={myntraStore}>
       <RouterProvider router={router} />
       <ToastContainer
@@ -108,5 +110,6 @@ createRoot(document.getElementById("root")).render(
         transition={Bounce}
       />
     </Provider>
+    </GoogleOAuthProvider>;
   </StrictMode>
 );

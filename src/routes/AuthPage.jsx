@@ -7,6 +7,9 @@ import { isLoginActions } from "../store/isLoginSlice";
 import { wishlistActions } from "../store/wishlistSlice";
 import Loader from "../components/Loader";
 import { toast, Bounce } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
+import { useAuthSubmit } from "../hooks/useAuthSubmit";
+import { jwtDecode } from "jwt-decode";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -21,103 +24,73 @@ const AuthPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const name = nameRef.current?.value || ""; // safe check
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
-    if (!isValidEmail(email)) {
-      return setError("Invalid Email Formate");
-    }
-
-    if (password.length < 8) {
-      return setError("Password length must be atleast 8 character");
-    }
-
-    const formData = isLogin ? { email, password } : { name, email, password };
-
-    const url = isLogin
-      ? `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`
-      : `${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`;
-
+  const handleSubmit = useAuthSubmit(setLoading, setError, isLogin, nameRef, emailRef, passwordRef);
+  const handleGoogleLogin = async (credentialResponse) => {
     try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      setLoading(true);
+      const decoded = jwtDecode(credentialResponse.credential);
+      console.log("Google user:", decoded);
 
+      // Extract useful info
+      const name = decoded.name;
+      const email = decoded.email;
+      const googleId = decoded.sub; // unique google id
+
+      // ---- Option A: Send token to backend for verification & login ----
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/google-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, googleId }),
+      });
       const data = await res.json();
 
       if (res.ok) {
-        console.log("Response data:", data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user.id);
         localStorage.setItem("userName", data.user.name);
+
         dispatch(isLoginActions.setLogin(true));
 
-        // Fetch the wishlist for the logged-in user
-        await fetch(
-          `${
-            import.meta.env.VITE_API_BASE_URL
-          }/api/wishlist/${localStorage.getItem("userId")}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            // Handle the fetched wishlist data
-
-            dispatch(wishlistActions.addInitialWishlist(data.wishlist));
-          })
-          .catch((error) => {
-            console.error("Error fetching wishlist:", error);
-          });
-        //---------------------------------------------------------
+        // fetch wishlist
+        const wishlistRes = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/wishlist/${data.user.id}`
+        );
+        const wishlistData = await wishlistRes.json();
+        dispatch(wishlistActions.addInitialWishlist(wishlistData.wishlist));
         setLoading(false);
-
-        toast.success("Login/Signup Success ✅", {
+        toast.success("Google Login Success ✅", {
           position: "top-center",
           autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "dark",
           transition: Bounce,
         });
-
+        
         navigate("/");
       } else {
-        setLoading(false);
-        toast.error(data.message || "Something went wrong ❌", {
+        toast.error(data.message || "Google login failed ❌", {
           position: "top-center",
           autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "dark",
           transition: Bounce,
         });
       }
-    } catch (err) {
-      setLoading(false);
-      toast.error(err.message || "Something went wrong ❌", {
+
+      // ---- Option B (quick local login without backend) ----
+      // localStorage.setItem("token", credentialResponse.credential);
+      // localStorage.setItem("userId", googleId);
+      // localStorage.setItem("userName", name);
+      // dispatch(isLoginActions.setLogin(true));
+      // navigate("/");
+
+    } catch (error) {
+      console.error("Google login error:", error);
+      toast.error("Google login failed ❌", {
         position: "top-center",
         autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
+      setLoading(false);
     }
   };
 
@@ -156,6 +129,14 @@ const AuthPage = () => {
               />
               <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
               {error && <p style={{ color: "red" }}>{error}</p>}
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  handleGoogleLogin(credentialResponse);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
             </form>
             <p>
               {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
