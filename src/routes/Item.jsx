@@ -8,6 +8,8 @@ const Item = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const item = useSelector((store) => store.description);
+  const dateTime = item.postedAt || "";
+  const dateOnly = dateTime.split("T")[0];
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items/${id}`)
@@ -33,7 +35,7 @@ const Item = () => {
         <h2 className="item-title">{item.title}</h2>
         <p className="item-description">{item.description}</p>
           <span>
-            <strong>Posted At:</strong> {item.postedAt}
+            <strong>Posted At:</strong> {dateOnly}
           </span>
           <span>
             <strong>Location:</strong> {item.location}

@@ -1,15 +1,11 @@
 import { ImProfile } from "react-icons/im";
 import { LuBookHeart } from "react-icons/lu";
-import { BsHandbagFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { GoSearch } from "react-icons/go";
 import { FiMenu } from "react-icons/fi";
-import { MdPlaylistAddCircle } from "react-icons/md";
-import { MdPlaylistAddCheckCircle } from "react-icons/md";
 import { IoIosLogIn } from "react-icons/io";
 import { useRef, useState, useEffect } from "react";
-import { IoHome } from "react-icons/io5";
 import { MdOutlineAddBox } from "react-icons/md";
 import { SlBasketLoaded } from "react-icons/sl";
 import { IoHomeOutline } from "react-icons/io5";
@@ -101,23 +97,23 @@ const Header = () => {
               <IoHomeOutline />
               <span>Home</span>
             </Link>
-            <Link to="/myPost" className="mobile-nav-link">
-              <SlBasketLoaded />
-              <span>My Listings</span>
-            </Link>
             {!isLogin && (
               <Link to="/login" className="mobile-nav-link">
                 <IoIosLogIn />
                 <span>Login</span>
               </Link>
             )}
-            <Link to="/addPost" className="mobile-nav-link">
-              <MdOutlineAddBox />
-              <span>Sell Something</span>
-            </Link>
             <Link to="/myProfile" className="mobile-nav-link">
               <VscAccount />
               <span>Account</span>
+            </Link>
+            <Link to="/myPost" className="mobile-nav-link">
+              <SlBasketLoaded />
+              <span>My Listings</span>
+            </Link>
+            <Link to="/addPost" className="mobile-nav-link">
+              <MdOutlineAddBox />
+              <span>Sell Something</span>
             </Link>
             <Link to="/wishlist" className="mobile-nav-link">
               <BiBookmarkHeart />
