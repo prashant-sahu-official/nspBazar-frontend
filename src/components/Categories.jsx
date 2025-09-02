@@ -34,13 +34,13 @@ const Categories = () => {
     {isMobile ? (
       <Swiper
         slidesPerView="auto"
-        spaceBetween={10}
+        spaceBetween={5}
         freeMode={true}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
       >
         {categories.map((category, index) => (
-          <SwiperSlide key={index} style={{ width: "120px" }}>
+          <SwiperSlide key={index} style={{ width: "100px" }}>
             <Link to={`/category/${category.name.toLowerCase()}`} className="category-link">
               <img
                 src={category.image}

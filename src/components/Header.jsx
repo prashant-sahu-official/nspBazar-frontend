@@ -8,9 +8,13 @@ import { FiMenu } from "react-icons/fi";
 import { MdPlaylistAddCircle } from "react-icons/md";
 import { MdPlaylistAddCheckCircle } from "react-icons/md";
 import { IoIosLogIn } from "react-icons/io";
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from "react";
 import { IoHome } from "react-icons/io5";
-
+import { MdOutlineAddBox } from "react-icons/md";
+import { SlBasketLoaded } from "react-icons/sl";
+import { IoHomeOutline } from "react-icons/io5";
+import { VscAccount } from "react-icons/vsc";
+import { BiBookmarkHeart } from "react-icons/bi";
 
 import "./Header.css";
 
@@ -21,9 +25,9 @@ const Header = () => {
   const touchStartY = useRef(0);
   const touchEndY = useRef(0);
   const navRef = useRef(null); // 👈 Reference to #full-scr
-    
+
   //onCLick event using event delegation for mobile nav links
-    useEffect(() => {
+  useEffect(() => {
     const nav = navRef.current;
 
     const handleClick = (e) => {
@@ -59,14 +63,14 @@ const Header = () => {
     };
 
     if (navEl) {
-      navEl.addEventListener('touchstart', handleTouchStart);
-      navEl.addEventListener('touchend', handleTouchEnd);
+      navEl.addEventListener("touchstart", handleTouchStart);
+      navEl.addEventListener("touchend", handleTouchEnd);
     }
 
     return () => {
       if (navEl) {
-        navEl.removeEventListener('touchstart', handleTouchStart);
-        navEl.removeEventListener('touchend', handleTouchEnd);
+        navEl.removeEventListener("touchstart", handleTouchStart);
+        navEl.removeEventListener("touchend", handleTouchEnd);
       }
     };
   }, []);
@@ -94,12 +98,12 @@ const Header = () => {
         <div id="full-scr" ref={navRef} className="mobile-nav">
           <nav className="mobile-nav-content" aria-label="Mobile Navigation">
             <Link to="/" className="mobile-nav-link">
-            <IoHome />
+              <IoHomeOutline />
               <span>Home</span>
             </Link>
             <Link to="/myPost" className="mobile-nav-link">
-              <MdPlaylistAddCheckCircle />
-              <span>My Posts</span>
+              <SlBasketLoaded />
+              <span>My Listings</span>
             </Link>
             {!isLogin && (
               <Link to="/login" className="mobile-nav-link">
@@ -108,24 +112,24 @@ const Header = () => {
               </Link>
             )}
             <Link to="/addPost" className="mobile-nav-link">
-              <MdPlaylistAddCircle />
-              <span>Create Post</span>
+              <MdOutlineAddBox />
+              <span>Sell Something</span>
             </Link>
             <Link to="/myProfile" className="mobile-nav-link">
-              <ImProfile />
-              <span>Profile</span>
+              <VscAccount />
+              <span>Account</span>
             </Link>
             <Link to="/wishlist" className="mobile-nav-link">
-              <LuBookHeart />
-              <span>Wishlist</span>
+              <BiBookmarkHeart />
+              <span>Saved Items</span>
             </Link>
           </nav>
         </div>
         <nav class="nav_bar">
-          <Link to="/myPost"> My Posts </Link>
+          <Link to="/myPost"> My Listings </Link>
           {/* <a href="#">Home & Living</a> */}
           {!isLogin && <Link to="/login">Login</Link>}
-          <Link to="/addPost">Create Post</Link>
+          <Link to="/addPost">Sell Something</Link>
         </nav>
         <div class="search_bar">
           <button className="search_button">
