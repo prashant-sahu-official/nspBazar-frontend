@@ -16,6 +16,7 @@ header {
     height: 65px;
     margin-left: 0;
     transition: transform 0.2s;
+    
 }
 
 .myntra_home:hover {
